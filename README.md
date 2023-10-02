@@ -1,5 +1,46 @@
 # React-shop-cloudfront
 
+**Manually deployed**  
+S3 Bucket's static website: http://alex-shop-react-redux-cloudfront.s3-website-eu-west-1.amazonaws.com/  
+Bucket policy:  
+```
+{
+    "Version": "2012-10-17",
+    "Id": "Policy1695885491515",
+    "Statement": [
+        {
+            "Sid": "Stmt1695885481657",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::alex-shop-react-redux-cloudfront/*"
+        }
+    ]
+}
+```
+
+**Autodeployed with serverless**  
+S3 Bucket's static website: http://alex-store-react-redux-cloudfront.s3-website-eu-west-1.amazonaws.com/  
+CloudFront: https://dri5x62a0q5g9.cloudfront.net/  
+Bucket policy:  
+```
+{
+    "Version": "2008-10-17",
+    "Statement": [
+        {
+            "Sid": "AllowCloudFrontAccessIdentity",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E10Q73V9YDRUBK"
+            },
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::alex-store-react-redux-cloudfront/*"
+        }
+    ]
+}
+```
+
+
 This is frontend starter project for nodejs-aws mentoring program. It uses the following technologies:
 
 - [Vite](https://vitejs.dev/) as a project bundler

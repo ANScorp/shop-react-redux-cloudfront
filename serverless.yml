@@ -19,7 +19,7 @@ plugins:
 
 custom:
   client:
-    bucketName: my-store-app
+    bucketName: alex-store-react-redux-cloudfront
     distributionFolder: dist
   s3BucketName: ${self:custom.client.bucketName}
 
@@ -29,6 +29,7 @@ custom:
     buckets:
       - ${self:custom.client.bucketName}
 
+# CloudFormation resource templates
 resources:
   Resources:
     ## Specifying the S3 Bucket
@@ -36,7 +37,11 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.s3BucketName}
-        AccessControl: PublicRead
+        # PublicAccessBlockConfiguration:
+        #   BlockPublicAcls: false
+        OwnershipControls:
+          Rules:
+            - ObjectOwnership: ObjectWriter
         WebsiteConfiguration:
           IndexDocument: index.html
           ErrorDocument: index.html
